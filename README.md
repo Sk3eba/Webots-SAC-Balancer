@@ -1,1 +1,2 @@
 Projekt autonomicznego robota dwukołowego szkolonego przy użyciu algorytmu Soft Actor-Critic (SAC) w środowisku symulacyjnym Webots. Robot uczy się utrzymywania równowagi oraz pozycji na środku areny od zera.
+![Balansowanie robota](media/balancing.gif)
