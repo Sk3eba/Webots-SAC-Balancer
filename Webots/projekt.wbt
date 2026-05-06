@@ -1,0 +1,133 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+
+WorldInfo {
+  basicTimeStep 8
+  optimalThreadCount 14
+  contactProperties [
+    ContactProperties {
+      bounce 0
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.19087736163263974 -0.8818608124770478 -0.43114654148384834 5.8661435941848845
+  position -1.2937596376036784 -0.12140932551631835 0.4315528068298828
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 1 2
+  wallHeight 0.01
+}
+Robot {
+  translation 0 0 0.15
+  rotation 0.000999999500000375 0 0.999999500000375 0
+  children [
+    InertialUnit {
+      name "imu"
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.09 0 -0.08
+        dampingConstant 0.1
+      }
+      device [
+        RotationalMotor {
+          name "left_motor"
+        }
+      ]
+      endPoint Solid {
+        translation 0.09 0 -0.08
+        rotation 0 1 0 -1.57
+        children [
+          DEF LKOLO Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 0 0 0
+              }
+            }
+            geometry Cylinder {
+              height 0.02
+              radius 0.04
+            }
+          }
+        ]
+        boundingObject USE LKOLO
+        physics Physics {
+          density -1
+          mass 0.2
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.09 0 -0.08
+        dampingConstant 0.1
+      }
+      device [
+        RotationalMotor {
+          name "right_motor"
+        }
+      ]
+      endPoint Solid {
+        translation -0.09 0 -0.08
+        rotation 0 1 0 1.57
+        children [
+          DEF PKOLO Shape {
+            appearance Appearance {
+              material Material {
+                diffuseColor 0 0 0
+              }
+            }
+            geometry Cylinder {
+              height 0.02
+              radius 0.04
+            }
+          }
+        ]
+        name "solid(1)"
+        boundingObject USE PKOLO
+        physics Physics {
+          density -1
+          mass 0.2
+        }
+      }
+    }
+    DEF KORPUS Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0.2 0.2 0.8
+        }
+      }
+      geometry Box {
+        size 0.16 0.12 0.17
+      }
+    }
+  ]
+  boundingObject Group {
+    children [
+      USE KORPUS
+      USE PKOLO
+      USE LKOLO
+    ]
+  }
+  physics Physics {
+    density -1
+    mass 2.5
+    centerOfMass [
+      0 0 0.08
+    ]
+    damping Damping {
+      linear 0.5
+      angular 0.5
+    }
+  }
+  controller "sac"
+  supervisor TRUE
+}
